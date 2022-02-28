@@ -1,0 +1,88 @@
+<div class="container-fluid">
+    <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
+        <ngb-panel id="custom-panel-1">
+            <ng-template ngbPanelHeader let-opened="opened">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5 class="m-0">Stock/Price Search</h5>
+                    <button ngbPanelToggle class="btn btn-light float-right p-0"><i
+                            [ngClass]="opened ? 'fas fa-minus' : 'fas fa-plus'"></i></button>
+                </div>
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <div class="row">
+                    <div class="col-md-12" *ngIf="errorFlag">
+                        <div class="alert alert-danger" role="alert">
+                            <p>The amount entered exceeds the search limit!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 mt-3 mb-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="basesearchtext">Basecode MAX(50)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <textarea class="form-control" id="basesearchtext" rows="5" cols="35"
+                                        [(ngModel)]="searchItembase" (change)="onChangeValidate()"
+                                        (keyup)="onChangeValidate()"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button [disabled]="errorFlag" class="btn btn-primary" type="button"
+                                        (click)="onBaseSearch()">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-3 mb-3">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="searchtext">Sku MAX(50)</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <textarea class="form-control" id="searchtext" rows="5" cols="35"
+                                        [(ngModel)]="searchItemsku" (change)="onChangeValidate()"
+                                        (keyup)="onChangeValidate()"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button [disabled]="errorFlag" class="btn btn-primary" type="button"
+                                        (click)="onSkuSearch()">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-panel>
+    </ngb-accordion>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="spinner-border" role="status" *ngIf="isSearching && !errorFlag">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="error">
+                    <p>Something went wrong! Please try again later.</p>
+                </div>
+                <div class="table-responsive">
+                    <app-inventory-list *ngIf="showDataGrid && !error"></app-inventory-list>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
