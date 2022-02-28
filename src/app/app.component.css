@@ -1,0 +1,10 @@
+#main-wrapper {
+    max-height: 100vh;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-right: 0px;
+}
+
+.mainwrapperexpand{
+    transition: all .3s;
+}
